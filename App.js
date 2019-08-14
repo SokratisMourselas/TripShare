@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Dimensions, Button, Alert, ImageBackground} from 'react-native';
 import reactLogo from './assets/sharing.jpg';
+import { createStackNavigator, createAppContainer } from "react-navigation";
 
 let windowSize = Dimensions.get('window')
 
-export default class HelloWorldApp extends Component {
+class HomeScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -45,6 +46,20 @@ export default class HelloWorldApp extends Component {
           </View>
       </ImageBackground>
     );
+  }
+}
+
+const RootStack = createStackNavigator(
+  {
+    Home: HomeScreen
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
+
+export default class App extends React.Component {
+  render() {
+    return <AppContainer />;
   }
 }
 
