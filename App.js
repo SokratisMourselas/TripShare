@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Dimensions, Button, Alert} from 'react-native';
 
 let windowSize = Dimensions.get('window')
 
@@ -9,6 +9,10 @@ export default class HelloWorldApp extends Component {
     super(props);
     this.state = { username: '',
                     password:'' };
+  }
+
+  onPressSignIn = () => {
+    Alert.alert('Signing in...');
   }
 
   render() {
@@ -29,6 +33,12 @@ export default class HelloWorldApp extends Component {
         placeholder="Password"
         secureTextEntry
       />
+
+      <Button
+      onPress={this.onPressSignIn}
+      title="Sign In"
+      color="blue">
+      </Button>
       </View>
     );
   }
@@ -56,5 +66,6 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     alignSelf: 'center',
     backgroundColor: '#ffffff',
+    marginBottom: 8,
   }
 });
