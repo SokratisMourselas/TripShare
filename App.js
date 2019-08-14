@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Dimensions, Button, Alert} from 'react-native';
+import { StyleSheet, Text, TextInput, View, Dimensions, Button, Alert, ImageBackground} from 'react-native';
+import reactLogo from './assets/sharing.jpg';
 
 let windowSize = Dimensions.get('window')
 
@@ -17,29 +18,32 @@ export default class HelloWorldApp extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text style={styles.bigBlue}>Welcome to TripShare!</Text>
-        <Text style={styles.blue}>Before we continue, please sign in:</Text>
-        <TextInput
-        style={styles.input}
-        onChangeText={(username) => this.setState({username})}
-        value={this.state.username}
-        placeholder="Name"
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={(password) => this.setState({password})}
-        value={this.state.password}
-        placeholder="Password"
-        secureTextEntry
-      />
+      <ImageBackground imageStyle={{opacity:0.3}} source={reactLogo} style={{width: '100%', height: '100%'}}>
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>    
+            <Text style={styles.bigBlue}>Welcome to TripShare!</Text>
+            <Text style={styles.blue}>Before we continue, please sign in:</Text>
+            <TextInput
+            style={styles.input}
+            onChangeText={(username) => this.setState({username})}
+            value={this.state.username}
+            placeholder="Name"
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={(password) => this.setState({password})}
+            value={this.state.password}
+            placeholder="Password"
+            secureTextEntry
+          />
 
-      <Button
-      onPress={this.onPressSignIn}
-      title="Sign In"
-      color="blue">
-      </Button>
-      </View>
+          <Button
+          style={styles.button}
+          onPress={this.onPressSignIn}
+          title="Sign In"
+          color="blue">
+          </Button>
+          </View>
+      </ImageBackground>
     );
   }
 }
@@ -63,9 +67,11 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     borderColor: '#6E5BAA',
     borderWidth: 1,
-    borderRadius: 2,
+    borderRadius: 15,
     alignSelf: 'center',
     backgroundColor: '#ffffff',
     marginBottom: 8,
+  },
+  button: {
   }
 });
