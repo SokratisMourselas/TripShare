@@ -14,7 +14,8 @@ class HomeScreen extends Component {
   }
 
   onPressSignIn = () => {
-    Alert.alert('Signing in...');
+    // Alert.alert('Signing in...');
+    this.props.navigation.navigate('Details');
   }
 
   render() {
@@ -49,9 +50,23 @@ class HomeScreen extends Component {
   }
 }
 
+class DetailsScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Details Screen</Text>
+      </View>
+    );
+  }
+}
+
 const RootStack = createStackNavigator(
   {
-    Home: HomeScreen
+    Home: HomeScreen,
+    Details: DetailsScreen,
+  },
+  {
+    initialRouteName: 'Home',
   }
 );
 
@@ -62,7 +77,6 @@ export default class App extends React.Component {
     return <AppContainer />;
   }
 }
-
 const styles = StyleSheet.create({
   bigBlue: {
     color: 'blue',
