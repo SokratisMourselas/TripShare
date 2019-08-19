@@ -47,7 +47,7 @@ class HomeScreen extends Component {
           {/*Donute Button Image */}
           <Image
             source={reactLogo}
-            style={{ width: 25, height: 25, marginLeft: 5 }}
+            style={{ width: 40, height: 30, marginLeft: 5 }}
           />
         </TouchableOpacity>
       </View>
@@ -85,10 +85,26 @@ class HomeScreen extends Component {
 
 
 class SettingsScreen extends Component {
+  toggleDrawer = () => {
+    //Props to open/close the drawer
+    this.props.navigation.toggleDrawer();
+  };
   render() {
+    
     return (
+      <View style={{ flex: 1, justifyContent: "flex-start", alignItems: "flex-start" }}> 
+      <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity onPress={this.toggleDrawer.bind(this)}>
+          {/*Donute Button Image */}
+          <Image
+            source={reactLogo}
+            style={{ width: 40, height: 30, marginLeft: 5 }}
+          />
+        </TouchableOpacity>
+      </View>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Settings!</Text>
+      </View>
       </View>
     );
   }
@@ -99,6 +115,10 @@ SettingsScreen.navigationOptions = {
 }
 
 class DetailsScreen extends Component {
+  toggleDrawer = () => {
+    //Props to open/close the drawer
+    this.props.navigation.toggleDrawer();
+  };
 
   static navigationOptions = {
     title: 'Details Page',
@@ -106,6 +126,16 @@ class DetailsScreen extends Component {
 
   render() {
     return (
+      <View style={{ flex: 1, justifyContent: "flex-start", alignItems: "flex-start" }}> 
+      <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity onPress={this.toggleDrawer.bind(this)}>
+          {/*Donute Button Image */}
+          <Image
+            source={reactLogo}
+            style={{ width: 40, height: 30, marginLeft: 5 }}
+          />
+        </TouchableOpacity>
+      </View>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Details Screen</Text>
         <Button
@@ -120,6 +150,7 @@ class DetailsScreen extends Component {
           title="Go back"
           onPress={() => this.props.navigation.goBack()}
         />
+      </View>
       </View>
     );
   }
@@ -148,21 +179,21 @@ class DetailsScreen extends Component {
 const AppNavigator = createDrawerNavigator({
   //Drawer Optons and indexing
   Home: { 
-    // title: "Home",
+    title: "Home",
     screen: HomeScreen,
     navigationOptions: {
       drawerLabel: "Home"
     }
   },
   Details: {
-    // title: "Details",
+    title: "Details",
     screen: DetailsScreen,
     navigationOptions: {
       drawerLabel: "Details"
     }
   },
   Settings: {
-    // title: "Settings",
+    title: "Settings",
     screen: SettingsScreen,
     navigationOptions: {
       drawerLabel: "Settings"
