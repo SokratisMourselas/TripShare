@@ -7,6 +7,20 @@ let windowSize = Dimensions.get('window')
 
 class HomeScreen extends Component {
 
+  static navigationOptions =  ({ navigation }) => {
+    return{
+      leftButtonText: "Menu",
+      headerRight: (
+        <Button
+          onPress={() => navigation.navigate('Settings')}
+          title="Settings"
+          style = {styles.button}
+        />
+      ),
+      title: "Home"
+    }
+  };
+
   constructor(props) {
     super(props);
     this.state = { username: '',
@@ -50,13 +64,8 @@ class HomeScreen extends Component {
   }
 }
 
-HomeScreen.navigationOptions = {
-  leftButtonText: "Menu",
-  title: "Home"
-};
 
-
-class SettingsScreen extends React.Component {
+class SettingsScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -97,7 +106,7 @@ class DetailsScreen extends Component {
   }
 }
 
-const RootStack = createStackNavigator(
+const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
     Details: DetailsScreen,
@@ -116,8 +125,6 @@ const RootStack = createStackNavigator(
     },
   }
 );
-
-const AppNavigator = createAppContainer(RootStack);
 
 const DrawerNavigator = createDrawerNavigator({
   AppNavigator
