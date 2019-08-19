@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Dimensions, Button, Alert, ImageBackground} from 'react-native';
-import reactLogo from './assets/sharing.jpg';
+import { StyleSheet, Text, TextInput, View, Dimensions, Button, TouchableOpacity, ImageBackground, StatusBar, Image} from 'react-native';
+import sharing from './assets/sharing.jpg';
+import reactLogo from './assets/drawericon.jpg';
+import settingsButtonImg from './assets/settings.png';
 import { createStackNavigator, createAppContainer, createDrawerNavigator } from "react-navigation";
 
 let windowSize = Dimensions.get('window')
 
 class HomeScreen extends Component {
 
+  toggleDrawer = () => {
+    //Props to open/close the drawer
+    this.props.navigation.toggleDrawer();
+  };
+
   static navigationOptions =  ({ navigation }) => {
     return{
       leftButtonText: "Menu",
       headerRight: (
-        <Button
+        <TouchableOpacity
           onPress={() => navigation.navigate('Settings')}
-          title="Settings"
-          style = {styles.button}
-        />
+        >
+          <Image source={settingsButtonImg} style={{width: 30, height: 30}}/>
+        </TouchableOpacity>
       ),
       title: "Home"
     }
@@ -34,8 +41,19 @@ class HomeScreen extends Component {
 
   render() {
     return (
-      <ImageBackground imageStyle={{opacity:0.3}} source={reactLogo} style={{width: '100%', height: '100%'}}>
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>    
+      <View style={{ flex: 1, justifyContent: "flex-start", alignItems: "flex-start" }}> 
+      <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity onPress={this.toggleDrawer.bind(this)}>
+          {/*Donute Button Image */}
+          <Image
+            source={reactLogo}
+            style={{ width: 25, height: 25, marginLeft: 5 }}
+          />
+        </TouchableOpacity>
+      </View>
+      <ImageBackground imageStyle={{opacity:0.3}} source={sharing} style={{width: '100%', height: '100%'}}>
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>  
+        <StatusBar backgroundColor="white" barStyle="dark-content" />  
             <Text style={styles.bigBlue}>Welcome to TripShare!</Text>
             <Text style={styles.blue}>Before we continue, please sign in:</Text>
             <TextInput
@@ -60,6 +78,7 @@ class HomeScreen extends Component {
           </Button>
           </View>
       </ImageBackground>
+      </View>
     );
   }
 }
@@ -106,29 +125,52 @@ class DetailsScreen extends Component {
   }
 }
 
-const AppNavigator = createStackNavigator(
-  {
-    Home: HomeScreen,
-    Details: DetailsScreen,
-    Settings: SettingsScreen,
-  },
-  {
-    initialRouteName: 'Home',
-  },
-  {
-    hideStatusBar: true,
-    drawerBackgroundColor: 'rgba(255,255,255,.9)',
-    overlayColor: '#6b52ae',
-    contentOptions: {
-      activeTintColor: '#fff',
-      activeBackgroundColor: '#6b52ae',
-    },
-  }
-);
+// const AppNavigator = createStackNavigator(
+//   {
+//     Home: HomeScreen,
+//     Details: DetailsScreen,
+//     Settings: SettingsScreen,
+//   },
+//   {
+//     initialRouteName: 'Home',
+//   },
+//   {
+//     hideStatusBar: true,
+//     drawerBackgroundColor: 'rgba(255,255,255,.9)',
+//     overlayColor: '#6b52ae',
+//     contentOptions: {
+//       activeTintColor: '#fff',
+//       activeBackgroundColor: '#6b52ae',
+//     },
+//   }
+// );
 
-const DrawerNavigator = createDrawerNavigator({
-  AppNavigator
+const AppNavigator = createDrawerNavigator({
+  //Drawer Optons and indexing
+  Home: { 
+    // title: "Home",
+    screen: HomeScreen,
+    navigationOptions: {
+      drawerLabel: "Home"
+    }
+  },
+  Details: {
+    // title: "Details",
+    screen: DetailsScreen,
+    navigationOptions: {
+      drawerLabel: "Details"
+    }
+  },
+  Settings: {
+    // title: "Settings",
+    screen: SettingsScreen,
+    navigationOptions: {
+      drawerLabel: "Settings"
+    }
+  },
 });
+
+const DrawerNavigator = AppNavigator;
 
 export default createAppContainer(DrawerNavigator);
 
