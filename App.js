@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Dimensions, Button, Alert, ImageBackground} from 'react-native';
 import reactLogo from './assets/sharing.jpg';
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createStackNavigator, createAppContainer, createDrawerNavigator } from "react-navigation";
 
 let windowSize = Dimensions.get('window')
 
@@ -50,7 +50,32 @@ class HomeScreen extends Component {
   }
 }
 
-class DetailsScreen extends React.Component {
+HomeScreen.navigationOptions = {
+  leftButtonText: "Menu",
+  title: "Home"
+};
+
+
+class SettingsScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Settings!</Text>
+      </View>
+    );
+  }
+}
+
+SettingsScreen.navigationOptions = {
+  title: 'Settings'
+}
+
+class DetailsScreen extends Component {
+
+  static navigationOptions = {
+    title: 'Details Page',
+  };
+
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -76,19 +101,32 @@ const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     Details: DetailsScreen,
+    Settings: SettingsScreen,
   },
   {
     initialRouteName: 'Home',
+  },
+  {
+    hideStatusBar: true,
+    drawerBackgroundColor: 'rgba(255,255,255,.9)',
+    overlayColor: '#6b52ae',
+    contentOptions: {
+      activeTintColor: '#fff',
+      activeBackgroundColor: '#6b52ae',
+    },
   }
 );
 
-const AppContainer = createAppContainer(RootStack);
+const AppNavigator = createAppContainer(RootStack);
 
-export default class App extends React.Component {
-  render() {
-    return <AppContainer />;
-  }
-}
+const DrawerNavigator = createDrawerNavigator({
+  AppNavigator
+});
+
+export default createAppContainer(DrawerNavigator);
+
+
+
 const styles = StyleSheet.create({
   bigBlue: {
     color: 'blue',
